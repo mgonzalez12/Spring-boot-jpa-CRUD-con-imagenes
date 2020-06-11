@@ -1,5 +1,6 @@
 package com.springboot.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -133,6 +134,19 @@ public class ClienteController {
 		
 		if (!foto.isEmpty()) {
 			
+			if(cliente.getId() !=null
+					&& cliente.getId() > 0
+					&& cliente.getFoto() != null
+					&& cliente.getFoto().length() > 0) {
+				
+				Path rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
+				File archivo = rootPath.toFile();
+				
+				if(archivo.exists() && archivo.canRead()) {
+					archivo.delete();
+				}
+			}
+			
 			String uniqueFilename = UUID.randomUUID().toString() + "_"+foto.getOriginalFilename();
 			
 			Path rootPath = Paths.get("uploads").resolve(uniqueFilename) ;
@@ -165,8 +179,19 @@ public class ClienteController {
 	public String eliminar(@PathVariable(value="id") Long id,RedirectAttributes attribute) {
 		
 		if(id > 0) {
+			Cliente cliente = clienteService.findOne(id);
+			
 			clienteService.delete(id);
 			attribute.addFlashAttribute("success","Cliente Eliminado con exito");
+		
+			Path rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
+			File archivo = rootPath.toFile();
+			
+			if(archivo.exists() && archivo.canRead()) {
+				if(archivo.delete()) {
+					attribute.addFlashAttribute("info","Foto"+cliente.getFoto() +" eliminado con exito!");
+				}
+			}
 		}
 		
 		return "redirect:/listar";
