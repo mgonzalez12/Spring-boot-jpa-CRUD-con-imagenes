@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -107,17 +108,19 @@ public class ClienteController {
 		
 		if (!foto.isEmpty()) {
 			
-			Path directorioRecursos = Paths.get("C://Users//emine//Documents//practicas//spring boot//template//uploads");
-			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			String uniqueFilename = UUID.randomUUID().toString() + "_"+foto.getOriginalFilename();
+			
+			Path rootPath = Paths.get("uploads").resolve(uniqueFilename) ;
+			
+			Path rootAbsolutPath = rootPath.toAbsolutePath();
 
 			try {
+				
+				Files.copy(foto.getInputStream(),rootAbsolutPath);
+				
+				attribute.addFlashAttribute("info","ha subido correctamente '"+ uniqueFilename +"'");
 
-				byte[] bytes = foto.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + foto.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
-				attribute.addFlashAttribute("info","ha subido correctamente '"+ foto.getOriginalFilename()+"'");
-
-				cliente.setFoto(foto.getOriginalFilename());
+				cliente.setFoto(uniqueFilename);
 
 			} catch (IOException e) {
 				e.printStackTrace();

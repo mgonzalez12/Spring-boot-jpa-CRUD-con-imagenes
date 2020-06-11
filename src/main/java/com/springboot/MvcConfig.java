@@ -1,5 +1,7 @@
 package com.springboot;
 
+import java.nio.file.Paths;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,8 +14,10 @@ public class MvcConfig implements WebMvcConfigurer{
 		// TODO Auto-generated method stub
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		
+		String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
+		
 		registry.addResourceHandler("/uploads/**")
-		.addResourceLocations("file:/C:/Users/emine/Documents/practicas/spring boot/template/uploads/");
+		.addResourceLocations(resourcePath);
 	}
 
 	
