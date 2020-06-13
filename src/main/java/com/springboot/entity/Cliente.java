@@ -1,13 +1,18 @@
 package com.springboot.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 //import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,7 +22,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 @Entity
 @Table(name = "clientes")
@@ -29,11 +33,11 @@ public class Cliente implements Serializable {
 	@NotEmpty
 	@NotNull
 	private String nombre;
-	
+
 	@NotEmpty
 	@NotNull
 	private String apellido;
-	
+
 	@NotEmpty
 	@NotNull
 	@Email
@@ -42,10 +46,18 @@ public class Cliente implements Serializable {
 	@NotNull
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
-	
+
+	@OneToMany(mappedBy ="cliente" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Factura> facturas;
+
 	private String foto;
+
+	
+	public Cliente() {
+		facturas = new ArrayList<Factura>();
+	}
 
 	public Long getId() {
 		return id;
@@ -90,8 +102,6 @@ public class Cliente implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 
 	public String getFoto() {
 		return foto;
@@ -101,7 +111,19 @@ public class Cliente implements Serializable {
 		this.foto = foto;
 	}
 
+	
 
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+
+	public void addFactura(Factura factura) {
+		facturas.add(factura);
+	}
 
 	private static final long serialVersionUID = 1L;
 

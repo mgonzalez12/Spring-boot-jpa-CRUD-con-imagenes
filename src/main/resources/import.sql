@@ -1,4 +1,4 @@
-INSERT INTO clientes(id,nombre,apellido,email,create_at,foto)VALUES(9,'Andres','Guzman','profesor@mail.com','2020-04-02','');
-INSERT INTO clientes(id,nombre,apellido,email,create_at,foto)VALUES(10,'Marcos','Gonzalez','ingeniero@mail.com','2020-04-05','');
-INSERT INTO clientes(id,nombre,apellido,email,create_at,foto)VALUES(11,'Andres','Guzman','profesor@mail.com','2020-04-02','');
-INSERT INTO clientes(id,nombre,apellido,email,create_at,foto)VALUES(12,'Marcos','Gonzalez','ingeniero@mail.com','2020-04-05','');
+INSERT INTO productos (nombre,precio,create_at) VALUES('Panasonic LCD',2400,NOW());
+INSERT INTO productos (nombre,precio,create_at) VALUES('Sony Camara digital',3000,NOW());
+INSERT INTO productos (nombre,precio,create_at) VALUES('Apple Ipod shuffle',3900,NOW());
+INSERT INTO productos (nombre,precio,create_at) VALUES('Hewlett Packard',6500,NOW());

@@ -3,8 +3,8 @@
 <head th:fragment="head">
 <meta charset="UTF-8" />
 <title th:text="'Spring boot: MVC + Thymeleaf + Data JPA' + ${titulo}"></title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
 
 </head>
 <body>
@@ -57,16 +57,19 @@
 	<div class="contianer"></div>
 
 	<footer th:fragment="footer">
+	 <div class="container">
+	  <div class="row">
 		<img th:src="@{/images/springboot.png}" alt="spring logo" />
 		<p>Powered by <a href="https://projects.spring.io/spring-boot">Spring boot</a>
 			y <a href="http://www.thymeleaf.org">Thymeleaf</a>
 		</p>
 		<p>Este es un proyecto desarrollado en IDE Eclipse + Spring plugins (STS spring tool)</p>
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+		</div>
+		</div>
 	</footer>
 </body>
 </html>
